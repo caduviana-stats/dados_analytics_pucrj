@@ -10,15 +10,15 @@ O objetivo principal do projeto é construir uma estrutura de dados reproduzíve
 Inicialmente, o pipeline será orientado pelas seguintes perguntas:
 
 
-Como se alterou o contingente de trabalhadores por plataformas digitais entre os períodos disponíveis nas bases selecionadas?
-Como os trabalhadores por plataformas digitais se distribuem segundo características sociodemográficas?
-Que diferenças podem ser observadas entre trabalhadores por plataformas digitais e os demais trabalhadores em relação a rendimento e jornada de trabalho?
-Como se apresenta a contribuição para a previdência entre trabalhadores por plataformas digitais?
-Como se distribuem os trabalhadores por plataformas digitais entre diferentes modalidades de atividade, como transporte de passageiros, entrega de mercadorias e outros serviços?
-Existem diferenças nas condições de trabalho entre trabalhadores que utilizam plataformas como atividade principal e aqueles que as utilizam como atividade secundária?
-Como variam rendimento, jornada de trabalho e contribuição previdenciária segundo sexo, idade, escolaridade, raça/cor e região?
-Qual é a proporção de trabalhadores por plataformas que possui outro trabalho ou outra fonte de rendimento?
-Em que medida os dados disponíveis permitem comparar trabalhadores por plataformas com trabalhadores de ocupações semelhantes que não utilizam plataformas?
-Como os indicadores observados variam entre as regiões ou unidades da federação brasileiras?
+1 - Como se alterou o contingente de trabalhadores por plataformas digitais entre os períodos disponíveis nas bases selecionadas?
+2 - Como os trabalhadores por plataformas digitais se distribuem segundo características sociodemográficas?
+3 - Que diferenças podem ser observadas entre trabalhadores por plataformas digitais e os demais trabalhadores em relação a rendimento e jornada de trabalho?
+4 - Como se apresenta a contribuição para a previdência entre trabalhadores por plataformas digitais?
+5 - Como se distribuem os trabalhadores por plataformas digitais entre diferentes modalidades de atividade, como transporte de passageiros, entrega de mercadorias e outros serviços?
+6 - Existem diferenças nas condições de trabalho entre trabalhadores que utilizam plataformas como atividade principal e aqueles que as utilizam como atividade secundária?
+7 - Como variam rendimento, jornada de trabalho e contribuição previdenciária segundo sexo, idade, escolaridade, raça/cor e região?
+8 - Qual é a proporção de trabalhadores por plataformas que possui outro trabalho ou outra fonte de rendimento?
+9 - Em que medida os dados disponíveis permitem comparar trabalhadores por plataformas com trabalhadores de ocupações semelhantes que não utilizam plataformas?
+10 - Como os indicadores observados variam entre as regiões ou unidades da federação brasileiras?
 
 Nem todas as perguntas precisam necessariamente ser respondidas integralmente pelo MVP. A disponibilidade e a estrutura das bases selecionadas serão avaliadas durante o desenvolvimento do pipeline, mantendo-se registradas eventuais limitações encontradas. 
