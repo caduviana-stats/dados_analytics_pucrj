@@ -146,7 +146,7 @@ Neste projeto, os dados são utilizados exclusivamente para fins acadêmicos e
 analíticos, com identificação da PNAD Contínua e do IBGE como fonte das
 informações.
 
-## Referências institucionais
+### Referências institucionais
 
 - IBGE. Pesquisa Nacional por Amostra de Domicílios Contínua — Microdados trimestrais. Disponível em: https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Trimestral/Microdados/
 
@@ -157,29 +157,6 @@ informações.
 - IBGE. Plano de Dados Abertos 2024–2025. Disponível em: https://www.ibge.gov.br/np_download/novoportal/documentos_institucionais/Plano_de_Dados_Abertos_IBGE_2024_2025.pdf
 
 
-
-# 2. Carga dos Dados (Etapa 4.2)
-
-## 2.1 Obtenção e organização dos microdados
-
-Os dados utilizados no MVP correspondem aos microdados da **Pesquisa Nacional por Amostra de Domicílios Contínua (PNAD Contínua)**, produzida pelo Instituto Brasileiro de Geografia e Estatística (IBGE).
-
-Foram utilizados dois arquivos referentes aos períodos selecionados para o projeto:
-
-| Período | Arquivo utilizado | Registros |
-|---|---|---:|
-| 4º trimestre de 2022 | `PNADC_2022_trimestre4.txt` | 478.091 |
-| 3º trimestre de 2024 | `PNADC_2024_trimestre3.txt` | 479.778 |
-| **Total** | — | **957.869** |
-
-Os arquivos foram disponibilizados no ambiente de armazenamento do Databricks e organizados segundo o período de referência, preservando os microdados em seu formato original antes das transformações realizadas nas etapas posteriores.
-
-No ambiente utilizado pelo projeto, os arquivos extraídos foram organizados nos seguintes diretórios:
-
-
-/Volumes/workspace/bronze/pnad_raw/2022/extracted/PNADC_2022_trimestre4.txt
-
-/Volumes/workspace/bronze/pnad_raw/2024/extracted/PNADC_2024_trimestre3.txt
 
 # 2. Carga dos Dados (Etapa 4.2)
 
@@ -270,13 +247,13 @@ Dessa forma, mesmo após as transformações realizadas pelo pipeline, permanece
 
 ## 2.6 Evidências da carga
 
-Para documentar a execução desta etapa, serão incorporadas ao repositório evidências visuais do ambiente Databricks, contemplando a organização dos arquivos, a execução do notebook da camada Bronze e os controles de quantidade de registros.
+Para documentar a execução desta etapa, foi realizada uma validação das quantidades de registros carregados na camada Bronze. O controle confirmou 478.091 registros referentes ao 4º trimestre de 2022 e 479.778 registros referentes ao 3º trimestre de 2024, totalizando 957.869 observações.
 
-**[INSERIR SCREENSHOT DA ORGANIZAÇÃO/CARGA DOS ARQUIVOS NO DATABRICKS]**
+![Validação da carga dos microdados na camada Bronze](evidencias/evidencia_01_bronze_carga.png)
 
-**[INSERIR SCREENSHOT DA VALIDAÇÃO DAS CONTAGENS DE 2022 E 2024]**
+*Figura 1 — Validação da carga dos microdados da PNAD Contínua na camada Bronze.*
 
-O código correspondente a esta etapa está disponível no notebook `01_ingestao_pnad_bronze`.
+O código correspondente a esta etapa está disponível no notebook `01_ingestao_pnad_bronze.ipynb`.
 
 # 3. Modelagem e Catálogo de Dados (Etapa 4.3)
 
@@ -348,8 +325,9 @@ O diagrama foi construído durante o desenvolvimento da camada Gold e armazenado
 
 `/Volumes/workspace/gold/artefatos_projeto/der_gold_entregadores.png`
 
-**[INSERIR AQUI O DER DO MODELO GOLD]**
+![Diagrama Entidade-Relacionamento da camada Gold](evidencias/evidencia_02_der_gold.png)
 
+*Figura 2 — Diagrama Entidade-Relacionamento do modelo dimensional da camada Gold.*
 A representação visual complementa o catálogo de dados e permite observar a organização do esquema estrela utilizado no MVP.
 
 ## 3.5 Catálogo de Dados
@@ -548,18 +526,19 @@ Os marts também foram auditados após sua construção, permitindo verificar a 
 
 ## 3.9 Evidências da modelagem e do catálogo
 
-A documentação visual desta etapa será composta por evidências da modelagem efetivamente implementada no Databricks.
+A implementação da camada Gold foi verificada por meio da auditoria das tabelas persistidas no Databricks. A validação contempla a tabela fato, as seis dimensões e os marts analíticos construídos para disponibilização dos indicadores utilizados nas análises.
 
-**[INSERIR SCREENSHOT DO DIAGRAMA ENTIDADE-RELACIONAMENTO]**
+![Auditoria das tabelas persistidas na camada Gold](evidencias/evidencia_03_gold_tabelas_persistidas.png)
 
-**[INSERIR SCREENSHOT DAS TABELAS GOLD PERSISTIDAS NO DATABRICKS]**
+*Figura 3 — Auditoria das tabelas fato, dimensões e marts analíticos persistidos na camada Gold.*
 
-**[INSERIR SCREENSHOT DO CATÁLOGO/ESTRUTURA DAS TABELAS E CAMPOS]**
+O catálogo de dados documenta os campos da tabela fato e das dimensões, incluindo tipo, descrição, domínio e linhagem das variáveis utilizadas no modelo dimensional.
 
-**[INSERIR SCREENSHOT DA VALIDAÇÃO DAS CHAVES DIMENSIONAIS — RESULTADO ZERO PARA CHAVES SEM CORRESPONDÊNCIA]**
+![Catálogo de dados da camada Gold](evidencias/evidencia_04_catalogo_dados_gold.png)
 
-A implementação da modelagem dimensional, do catálogo, dos marts e das verificações correspondentes está disponível no notebook `03_construcao_pnad_gold`.
+*Figura 4 — Catálogo de dados da tabela fato e das dimensões da camada Gold.*
 
+A implementação da modelagem dimensional, do catálogo, dos marts e das verificações correspondentes está disponível no notebook `03_construcao_pnad_gold.ipynb`.
 
 # 4. Pipeline de Dados (Etapa 4.4)
 
@@ -771,17 +750,19 @@ Os três notebooks correspondentes ao pipeline estão, portanto, versionados no 
 
 ## 4.9 Evidências do pipeline e da persistência
 
-Para documentar a execução do pipeline e a persistência das estruturas na plataforma de nuvem, serão incorporadas as seguintes evidências:
+A organização do pipeline e seu versionamento podem ser observados no repositório do projeto, que reúne os três notebooks correspondentes às camadas Bronze, Silver e Gold, além do `README.md`.
 
-**[INSERIR SCREENSHOT DO REPOSITÓRIO MOSTRANDO `01_ingestao_pnad_bronze`, `02_transformacao_pnad_silver`, `03_construcao_pnad_gold` E `README.md`]**
+![Repositório do projeto com os notebooks do pipeline](evidencias/evidencia_05_repositorio_git.png)
 
-**[INSERIR SCREENSHOT DA TABELA `silver_entregadores_pnad` PERSISTIDA]**
+*Figura 5 — Repositório do projeto na branch `main`, contendo os notebooks das camadas Bronze, Silver e Gold e o arquivo `README.md`.*
 
-**[INSERIR SCREENSHOT DAS DIMENSÕES E DA TABELA `gold_fact_trabalhador` PERSISTIDAS]**
+A persistência da camada Silver foi validada após a gravação da tabela `silver_entregadores_pnad`. A estrutura preserva 957.869 observações, distribuídas entre 478.091 registros referentes ao 4º trimestre de 2022 e 479.778 registros referentes ao 3º trimestre de 2024.
 
-**[INSERIR SCREENSHOT DOS MARTS GOLD PERSISTIDOS]**
+![Validação da tabela Silver persistida](evidencias/evidencia_06_silver_persistida.png)
 
-Essas evidências permitem relacionar a documentação apresentada no README às estruturas efetivamente construídas e persistidas no Databricks.
+*Figura 6 — Validação da tabela `silver_entregadores_pnad`, com a estrutura persistida e a quantidade de registros por período.*
+
+Em conjunto com as evidências apresentadas na seção anterior para a camada Gold, essas verificações permitem relacionar a documentação do pipeline às estruturas efetivamente construídas, persistidas e versionadas durante o desenvolvimento do MVP.
 
 
 # 5. Qualidade de Dados (Etapa 4.5)
@@ -1009,18 +990,17 @@ Os principais controles realizados podem ser sintetizados da seguinte forma:
 
 ## 5.14 Evidências dos controles de qualidade
 
-As evidências visuais desta etapa serão selecionadas entre os controles efetivamente executados nos notebooks Silver e Gold.
+Os controles de qualidade foram executados ao longo das camadas Silver e Gold, contemplando verificações de completude, consistência, tipagem, preservação das observações, reconstrução das variáveis analíticas e integridade do modelo dimensional.
 
-**[INSERIR SCREENSHOT DA VALIDAÇÃO DE `SD14001` E/OU DO CRUZAMENTO COM `S140093`]**
+Como evidência da integridade referencial da camada Gold, foram verificadas as seis chaves dimensionais presentes na tabela fato. O controle não identificou valores nulos em `id_tempo`, `id_sexo`, `id_cor_raca`, `id_faixa_etaria`, `id_posicao_ocupacao` e `id_atividade_principal`.
 
-**[INSERIR SCREENSHOT DA VALIDAÇÃO DE `entregador_plataformizado`: 691 EM 2022 E 778 EM 2024]**
+![Validação da integridade das chaves dimensionais](evidencias/evidencia_07_qualidade_integridade_gold.png)
 
-**[INSERIR SCREENSHOT DA PRESERVAÇÃO DOS 957.869 REGISTROS NA SILVER/GOLD]**
+*Figura 7 — Validação da integridade das seis chaves dimensionais da tabela `gold_fact_trabalhador`, sem ocorrência de valores nulos.*
 
-**[INSERIR SCREENSHOT DA VERIFICAÇÃO DE INTEGRIDADE DAS CHAVES DIMENSIONAIS — ZERO REGISTROS SEM CORRESPONDÊNCIA]**
+Essa verificação complementa os demais controles descritos nesta seção e indica que as observações da tabela fato foram associadas às dimensões previstas pelo modelo sem perda de correspondência nas chaves utilizadas.
 
-A implementação dos tratamentos e controles está distribuída principalmente entre os notebooks `02_transformacao_pnad_silver` e `03_construcao_pnad_gold`.
-
+A implementação dos tratamentos e controles de qualidade está distribuída principalmente entre os notebooks `02_transformacao_pnad_silver.ipynb` e `03_construcao_pnad_gold.ipynb`.
 
 
 # 6. Análise de Dados (Etapa 4.5)
@@ -1050,7 +1030,9 @@ A diferença entre as duas estimativas é de aproximadamente **41,4 mil trabalha
 
 Essa diferença permite observar que a estimativa obtida para o período analisado de 2024 é superior àquela encontrada para 2022. Entretanto, como os dados correspondem a trimestres distintos, o resultado deve ser compreendido como uma comparação entre dois recortes específicos, e não como evidência suficiente de uma trajetória contínua de crescimento.
 
-**[INSERIR GRÁFICO 1 — ESTIMATIVA DE ENTREGADORES PLATAFORMIZADOS POR PERÍODO]**
+![Estimativa de entregadores plataformizados por período](evidencias/evidencia_08_estimativa_entregadores.png)
+
+*Figura 8 — Estimativa ponderada de entregadores plataformizados no 4º trimestre de 2022 e no 3º trimestre de 2024.*
 
 ## 6.2 Composição segundo sexo
 
@@ -1069,7 +1051,9 @@ A estabilidade aproximada das proporções nos dois recortes sugere uma composi�
 
 Esse resultado descreve a composição da população estimada, mas, isoladamente, não permite estabelecer as razões pelas quais homens e mulheres aparecem em proporções distintas nessa atividade.
 
-**[INSERIR GRÁFICO 2 — DISTRIBUIÇÃO DOS ENTREGADORES SEGUNDO SEXO]**
+![Composição dos entregadores plataformizados por sexo](evidencias/evidencia_09_composicao_sexo.png)
+
+*Figura 9 — Composição estimada dos entregadores plataformizados segundo sexo, no 4º trimestre de 2022 e no 3º trimestre de 2024.*
 
 ## 6.3 Composição segundo cor ou raça
 
@@ -1091,7 +1075,9 @@ A participação da categoria preta passa de **13,17% para 14,25%** entre os doi
 
 Essas diferenças descrevem a composição estimada dos entregadores em cada período. Sua interpretação deve considerar tanto a natureza amostral da PNAD Contínua quanto o fato de que o MVP não realiza testes de significância estatística destinados a determinar se as diferenças entre os dois recortes ultrapassam a variabilidade esperada das estimativas.
 
-**[INSERIR GRÁFICO 3 — DISTRIBUIÇÃO DOS ENTREGADORES SEGUNDO COR OU RAÇA]**
+![Composição dos entregadores plataformizados por cor ou raça](evidencias/evidencia_10_composicao_cor_raca.png)
+
+*Figura 10 — Composição estimada dos entregadores plataformizados segundo cor ou raça, no 4º trimestre de 2022 e no 3º trimestre de 2024.*
 
 ## 6.4 Composição segundo faixa etária
 
@@ -1113,7 +1099,9 @@ Consideradas conjuntamente, as pessoas entre **25 e 44 anos representam aproxima
 
 Os resultados indicam, portanto, uma concentração da população analisada nessas faixas etárias, sem que isso signifique ausência de trabalhadores mais jovens ou mais velhos na atividade.
 
-**[INSERIR GRÁFICO 4 — DISTRIBUIÇÃO DOS ENTREGADORES SEGUNDO FAIXA ETÁRIA]**
+![Composição dos entregadores plataformizados por faixa etária](evidencias/evidencia_11_composicao_faixa_etaria.png)
+
+*Figura 11 — Composição estimada dos entregadores plataformizados segundo faixa etária, no 4º trimestre de 2022 e no 3º trimestre de 2024.*
 
 ## 6.5 Posição na ocupação
 
@@ -1134,7 +1122,10 @@ Esse resultado é relevante para a caracterização estatística da atividade, m
 
 O dado permite identificar como esses trabalhadores aparecem classificados nos microdados. A discussão sobre autonomia, controle e relações estabelecidas com as plataformas demanda outras dimensões de análise que não podem ser inferidas exclusivamente a partir dessa categoria.
 
-**[INSERIR GRÁFICO 5 — DISTRIBUIÇÃO DOS ENTREGADORES SEGUNDO POSIÇÃO NA OCUPAÇÃO]**
+![Composição dos entregadores plataformizados por posição na ocupação](evidencias/evidencia_12_posicao_ocupacao.png)
+
+*Figura 12 — Composição estimada dos entregadores plataformizados segundo posição na ocupação, no 4º trimestre de 2022 e no 3º trimestre de 2024.*
+
 
 ## 6.6 Atividade principal
 
@@ -1184,7 +1175,9 @@ A diferença na participação masculina é de aproximadamente **19,2 pontos per
 
 A comparação permite observar que a predominância masculina não decorre apenas da composição geral dos trabalhadores presentes no universo de comparação. Ela aparece de forma mais acentuada entre os entregadores identificados.
 
-**[INSERIR GRÁFICO 6 — COMPARAÇÃO SEGUNDO SEXO]**
+![Comparação entre entregadores plataformizados e demais trabalhadores segundo sexo](evidencias/evidencia_13_comparacao_sexo.png)
+
+*Figura 13 — Comparação da composição segundo sexo entre entregadores plataformizados e demais trabalhadores, no 4º trimestre de 2022 e no 3º trimestre de 2024.*
 
 ### Faixa etária
 
@@ -1201,7 +1194,9 @@ Quando agrupadas as faixas de **25 a 44 anos**, os resultados são:
 
 A diferença é próxima de **10 pontos percentuais**, indicando maior concentração dos entregadores entre 25 e 44 anos nos dois recortes analisados.
 
-**[INSERIR GRÁFICO 7 — COMPARAÇÃO SEGUNDO FAIXA ETÁRIA]**
+![Comparação entre entregadores plataformizados e demais trabalhadores segundo faixa etária](evidencias/evidencia_14_comparacao_faixa_etaria.png)
+
+*Figura 14 — Comparação da composição segundo faixa etária entre entregadores plataformizados e demais trabalhadores, no 4º trimestre de 2022 e no 3º trimestre de 2024.*
 
 ### Posição na ocupação
 
@@ -1220,7 +1215,9 @@ Os resultados mostram uma diferença expressiva na forma como os dois grupos se 
 
 Novamente, essa comparação descreve uma classificação estatística. A elevada presença da categoria por conta própria entre os entregadores não permite concluir, por si só, que esses trabalhadores possuam maior autonomia efetiva sobre as condições de realização de seu trabalho.
 
-**[INSERIR GRÁFICO 8 — COMPARAÇÃO SEGUNDO POSIÇÃO NA OCUPAÇÃO]**
+![Comparação entre entregadores plataformizados e demais trabalhadores segundo posição na ocupação](evidencias/evidencia_15_comparacao_posicao_ocupacao.png)
+
+*Figura 15 — Comparação da composição segundo posição na ocupação entre entregadores plataformizados e demais trabalhadores, no 4º trimestre de 2022 e no 3º trimestre de 2024.*
 
 ## 6.8 Síntese das respostas às perguntas do MVP
 
@@ -1493,182 +1490,42 @@ A reprodução deve respeitar essa sequência para preservar as dependências es
 
 # 9. Evidências da Solução
 
-Esta seção reúne as principais evidências visuais da implementação do MVP no Databricks e de seu versionamento no Git. As imagens foram selecionadas para documentar o percurso dos dados entre as camadas, a persistência das estruturas, os controles de qualidade e os resultados analíticos produzidos.
-
-## 9.1 Estrutura do projeto e versionamento
-
-O pipeline está organizado em três notebooks correspondentes às camadas Bronze, Silver e Gold, além deste `README.md`.
-
-**Evidência 1 — Estrutura do repositório**
-
-**[INSERIR SCREENSHOT DO REPOSITÓRIO `dados_analytics_pucrj` MOSTRANDO:]**
-
-- `README.md`
-- `01_ingestao_pnad_bronze`
-- `02_transformacao_pnad_silver`
-- `03_construcao_pnad_gold`
-
-A imagem documenta a presença dos três notebooks utilizados no pipeline e do arquivo de documentação no repositório do projeto.
-
-## 9.2 Camada Bronze
-
-A camada Bronze preserva os arquivos de origem e realiza as verificações iniciais da carga.
-
-**Evidência 2 — Ingestão e validação dos microdados**
-
-**[INSERIR SCREENSHOT DO NOTEBOOK `01_ingestao_pnad_bronze` MOSTRANDO OS ARQUIVOS E/OU AS CONTAGENS:]**
-
-- 2022: 478.091 registros;
-- 2024: 479.778 registros.
-
-A evidência permite verificar a entrada dos dois arquivos utilizados no MVP e os controles iniciais estabelecidos antes das transformações.
-
-## 9.3 Camada Silver
-
-A Silver concentra a extração, tipagem, harmonização e construção das variáveis analíticas.
-
-**Evidência 3 — Persistência da tabela Silver**
-
-**[INSERIR SCREENSHOT DA `silver_entregadores_pnad` PERSISTIDA NO DATABRICKS]**
-
-A tabela deve apresentar o universo harmonizado de **957.869 registros**.
-
-**Evidência 4 — Validação da população de entregadores plataformizados**
-
-**[INSERIR SCREENSHOT DO NOTEBOOK `02_transformacao_pnad_silver` MOSTRANDO A VALIDAÇÃO DE `entregador_plataformizado`]**
-
-Resultados de controle:
-
-| Período | Observações amostrais | Estimativa ponderada |
-|---|---:|---:|
-| 2022 | 691 | 445.866,9 |
-| 2024 | 778 | 487.284,9 |
-
-Essa evidência documenta a passagem entre as variáveis de origem, a reconstrução de `SD14001` e a população analítica utilizada nas etapas seguintes.
-
-## 9.4 Modelagem da camada Gold
-
-A camada Gold organiza os dados em um esquema estrela composto pela tabela `gold_fact_trabalhador` e seis dimensões.
-
-**Evidência 5 — Diagrama Entidade-Relacionamento**
-
-**[INSERIR `der_gold_entregadores.png`]**
-
-O diagrama apresenta as relações entre:
-
-- `gold_fact_trabalhador`;
-- `gold_dim_tempo`;
-- `gold_dim_sexo`;
-- `gold_dim_cor_raca`;
-- `gold_dim_faixa_etaria`;
-- `gold_dim_posicao_ocupacao`;
-- `gold_dim_atividade_principal`.
-
-**Evidência 6 — Estruturas Gold persistidas**
-
-**[INSERIR SCREENSHOT DO DATABRICKS MOSTRANDO A TABELA FATO E AS DIMENSÕES PERSISTIDAS]**
-
-A tabela `gold_fact_trabalhador` deve apresentar **957.869 registros**.
-
-As dimensões apresentam:
-
-| Dimensão | Registros |
-|---|---:|
-| `gold_dim_tempo` | 2 |
-| `gold_dim_sexo` | 2 |
-| `gold_dim_cor_raca` | 6 |
-| `gold_dim_faixa_etaria` | 8 |
-| `gold_dim_posicao_ocupacao` | 8 |
-| `gold_dim_atividade_principal` | 223 |
-
-## 9.5 Catálogo de Dados
-
-O catálogo documenta as estruturas da camada Gold, incluindo a função das tabelas, seus campos, domínios e linhagem.
-
-**Evidência 7 — Catálogo das tabelas e campos**
-
-**[INSERIR SCREENSHOT DO CATÁLOGO/ESTRUTURA DOCUMENTADA NO NOTEBOOK `03_construcao_pnad_gold`]**
-
-A evidência complementa o catálogo transcrito na Seção 3 e permite relacionar a documentação apresentada neste README à implementação realizada no ambiente Databricks.
-
-## 9.6 Controles de qualidade
-
-Foram implementados controles em diferentes etapas do pipeline para verificar a preservação das observações, a construção da população analítica e a integridade do modelo dimensional.
-
-**Evidência 8 — Integridade referencial da Gold**
-
-**[INSERIR SCREENSHOT DA VERIFICAÇÃO DAS CHAVES DIMENSIONAIS]**
-
-Resultado esperado:
-
-**0 registros sem correspondência em cada uma das seis dimensões.**
-
-A evidência documenta a consistência dos relacionamentos entre `gold_fact_trabalhador` e as dimensões.
-
-## 9.7 Marts analíticos
-
-A camada Gold também contém seis marts destinados ao consumo dos indicadores.
-
-**Evidência 9 — Marts persistidos**
-
-**[INSERIR SCREENSHOT MOSTRANDO OS MARTS GOLD]**
-
-| Mart | Registros |
-|---|---:|
-| `gold_indicadores_gerais` | 2 |
-| `gold_perfil_sexo` | 4 |
-| `gold_perfil_cor_raca` | 10 |
-| `gold_perfil_faixa_etaria` | 14 |
-| `gold_perfil_posicao_ocupacao` | 8 |
-| `gold_perfil_atividade_principal` | 32 |
-
-A persistência dessas estruturas permite reutilizar as agregações produzidas pelo pipeline para diferentes formas de consumo analítico.
-
-## 9.8 Evidências das análises
-
-As análises finais foram produzidas a partir das estruturas da camada Gold e respondem às perguntas formuladas no início do MVP.
-
-### Evidência 10 — Dimensão estimada dos entregadores
-
-**[INSERIR GRÁFICO 1 — ESTIMATIVA DE ENTREGADORES PLATAFORMIZADOS POR PERÍODO]**
-
-O gráfico apresenta as estimativas de aproximadamente **445,9 mil entregadores no 4º trimestre de 2022** e **487,3 mil no 3º trimestre de 2024**.
-
-### Evidência 11 — Perfil sociodemográfico e ocupacional
-
-**[INSERIR GRÁFICOS 2 A 5:]**
-
-- distribuição segundo sexo;
-- distribuição segundo cor ou raça;
-- distribuição segundo faixa etária;
-- distribuição segundo posição na ocupação.
-
-Essas visualizações documentam a caracterização interna da população de entregadores plataformizados.
-
-### Evidência 12 — Comparação com os demais trabalhadores
-
-**[INSERIR GRÁFICOS 6 A 8:]**
-
-- comparação segundo sexo;
-- comparação segundo faixa etária;
-- comparação segundo posição na ocupação.
-
-As visualizações permitem observar diferenças entre os entregadores plataformizados e os demais trabalhadores pertencentes ao universo de comparação.
-
-## 9.9 Relação entre evidências e etapas do MVP
-
-As evidências selecionadas permitem acompanhar o desenvolvimento da solução de ponta a ponta:
+As evidências visuais da implementação e dos resultados do MVP foram incorporadas às respectivas etapas deste `README.md`, permitindo relacionar cada imagem ao procedimento, estrutura ou resultado que ela documenta.
+
+Ao todo, foram selecionadas **15 evidências**, distribuídas entre a documentação técnica do pipeline e os resultados analíticos:
+
+- **Figura 1:** validação da carga dos microdados na camada Bronze;
+- **Figura 2:** Diagrama Entidade-Relacionamento da camada Gold;
+- **Figura 3:** auditoria das tabelas persistidas na camada Gold;
+- **Figura 4:** catálogo de dados da camada Gold;
+- **Figura 5:** estrutura e versionamento do projeto no repositório Git;
+- **Figura 6:** validação da tabela Silver persistida;
+- **Figura 7:** integridade das chaves dimensionais da tabela fato;
+- **Figura 8:** estimativa ponderada de entregadores plataformizados;
+- **Figura 9:** composição segundo sexo;
+- **Figura 10:** composição segundo cor ou raça;
+- **Figura 11:** composição segundo faixa etária;
+- **Figura 12:** composição segundo posição na ocupação;
+- **Figura 13:** comparação entre entregadores plataformizados e demais trabalhadores segundo sexo;
+- **Figura 14:** comparação entre entregadores plataformizados e demais trabalhadores segundo faixa etária;
+- **Figura 15:** comparação entre entregadores plataformizados e demais trabalhadores segundo posição na ocupação.
+
+Os arquivos correspondentes estão armazenados no diretório `evidencias/` do repositório. A opção por apresentar cada evidência junto à etapa a que se refere procura tornar mais direta a relação entre a documentação do projeto e sua implementação no Databricks.
+
+## 9.1 Relação entre evidências e etapas do MVP
+
+As evidências selecionadas permitem acompanhar o desenvolvimento da solução desde a carga dos microdados até a produção dos resultados analíticos:
 
 | Etapa | Evidência principal |
 |---|---|
-| Versionamento | Estrutura do repositório |
-| Carga | Arquivos e contagens da Bronze |
-| Transformação | `silver_entregadores_pnad` |
-| População analítica | Validação de `entregador_plataformizado` |
-| Modelagem | DER e estruturas Gold |
-| Catálogo | Documentação das tabelas e campos |
-| Qualidade | Integridade das chaves dimensionais |
-| Consumo | Marts Gold |
-| Análise | Gráficos 1 a 8 |
+| Carga | Validação das quantidades de registros na camada Bronze — Figura 1 |
+| Modelagem | Diagrama Entidade-Relacionamento da camada Gold — Figura 2 |
+| Persistência Gold | Auditoria da tabela fato, dimensões e marts analíticos — Figura 3 |
+| Catálogo | Documentação dos campos, tipos, domínios e linhagem — Figura 4 |
+| Versionamento | Estrutura do repositório e notebooks do pipeline — Figura 5 |
+| Transformação e persistência Silver | Validação da `silver_entregadores_pnad` — Figura 6 |
+| Qualidade | Integridade das chaves dimensionais da tabela fato — Figura 7 |
+| Análise descritiva | Estimativa e composição dos entregadores plataformizados — Figuras 8 a 12 |
+| Análise comparativa | Entregadores plataformizados e demais trabalhadores — Figuras 13 a 15 |
 
 O conjunto procura documentar não apenas os resultados finais, mas também o percurso realizado pelos dados desde os microdados de origem até as estruturas utilizadas nas análises.
