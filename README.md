@@ -926,9 +926,9 @@ Foram verificadas:
 - `id_posicao_ocupacao`;
 - `id_atividade_principal`.
 
-Os controles finais apresentaram **zero registros sem correspondência nas seis dimensões**.
+A integridade referencial foi verificada por meio de `left_anti join` entre a tabela fato e cada uma das respectivas dimensões. Esse procedimento permite identificar registros da fato cujas chaves não encontram correspondência na dimensão associada.
 
-Esse resultado indica que as observações da tabela fato permaneceram associadas às categorias necessárias ao funcionamento do esquema estrela.
+Os controles finais apresentaram **zero registros sem correspondência nas seis dimensões**, indicando que as chaves dimensionais presentes em `gold_fact_trabalhador` possuem correspondência nas respectivas tabelas de dimensão.
 
 ## 5.10 Tratamento de categorias técnicas e valores não classificados
 
@@ -992,11 +992,11 @@ Os principais controles realizados podem ser sintetizados da seguinte forma:
 
 Os controles de qualidade foram executados ao longo das camadas Silver e Gold, contemplando verificações de completude, consistência, tipagem, preservação das observações, reconstrução das variáveis analíticas e integridade do modelo dimensional.
 
-Como evidência da integridade referencial da camada Gold, foram verificadas as seis chaves dimensionais presentes na tabela fato. O controle não identificou valores nulos em `id_tempo`, `id_sexo`, `id_cor_raca`, `id_faixa_etaria`, `id_posicao_ocupacao` e `id_atividade_principal`.
+Como evidência da integridade referencial da camada Gold, foram verificadas as seis chaves dimensionais presentes na tabela fato. A validação foi realizada por meio de `left_anti join` entre `gold_fact_trabalhador` e cada uma das respectivas dimensões, permitindo identificar eventuais registros da fato sem correspondência nas tabelas dimensionais. O controle apresentou zero registros sem correspondência para `id_tempo`, `id_sexo`, `id_cor_raca`, `id_faixa_etaria`, `id_posicao_ocupacao` e `id_atividade_principal`.
 
 ![Validação da integridade das chaves dimensionais](evidencias/evidencia_07_qualidade_integridade_gold.png)
 
-*Figura 7 — Validação da integridade das seis chaves dimensionais da tabela `gold_fact_trabalhador`, sem ocorrência de valores nulos.*
+*Figura 7 — Validação da integridade referencial das seis chaves dimensionais da tabela `gold_fact_trabalhador`, sem ocorrência de registros sem correspondência nas respectivas dimensões.*
 
 Essa verificação complementa os demais controles descritos nesta seção e indica que as observações da tabela fato foram associadas às dimensões previstas pelo modelo sem perda de correspondência nas chaves utilizadas.
 
