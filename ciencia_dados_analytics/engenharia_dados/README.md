@@ -754,7 +754,7 @@ A organização do pipeline e seu versionamento podem ser observados no reposit�
 
 ![Repositório do projeto com os notebooks do pipeline](evidencias/evidencia_05_repositorio_git.png)
 
-*Figura 5 — Repositório do projeto na branch `main`, contendo os notebooks das camadas Bronze, Silver e Gold e o arquivo `README.md`.*
+*Figura 5 — Estrutura do projeto de Engenharia de Dados no repositório GitHub, contendo os notebooks das camadas Bronze, Silver e Gold, a pasta de evidências e o arquivo README.md.*
 
 A persistência da camada Silver foi validada após a gravação da tabela `silver_entregadores_pnad`. A estrutura preserva 957.869 observações, distribuídas entre 478.091 registros referentes ao 4º trimestre de 2022 e 479.778 registros referentes ao 3º trimestre de 2024.
 
