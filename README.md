@@ -20,13 +20,13 @@ O projeto contempla a ingestão, transformação, modelagem e disponibilização
 
 Espaço destinado ao projeto desenvolvido no módulo de **Análise de Dados e Boas Práticas**, contemplando a exploração, tratamento, análise e comunicação de dados a partir dos conteúdos trabalhados ao longo da disciplina.
 
-*Projeto em desenvolvimento.*
+
 
 ### Machine Learning e Analytics
 
 Espaço destinado ao projeto desenvolvido no módulo de **Machine Learning e Analytics**, voltado à aplicação de técnicas de modelagem e aprendizagem de máquina a problemas de análise de dados.
 
-*Projeto em desenvolvimento.*
+
 
 ---
 
